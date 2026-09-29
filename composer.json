@@ -4,10 +4,11 @@
     "type": "project",
     "require": {
         "composer-runtime-api": "^2.0",
-        "shopware/deployment-helper": "*",
         "shopware/administration": "*",
         "shopware/core": "6.7.14.2",
+        "shopware/deployment-helper": "*",
         "shopware/storefront": "*",
+        "sw/product-label": "*",
         "symfony/flex": "~2"
     },
     "repositories": [

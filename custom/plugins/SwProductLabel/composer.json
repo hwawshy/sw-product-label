@@ -1,0 +1,33 @@
+{
+    "name": "sw/product-label",
+    "description": "Assign colored labels (e.g. New, Sale, Limited Edition) to products and display them on the storefront",
+    "type": "shopware-platform-plugin",
+    "version": "1.0.0",
+    "license": "MIT",
+    "require": {
+        "shopware/core": "~6.7.0",
+        "shopware/storefront": "~6.7.0",
+        "shopware/administration": "~6.7.0"
+    },
+    "extra": {
+        "shopware-plugin-class": "SwProductLabel\\SwProductLabel",
+        "label": {
+            "de-DE": "Produkt-Labels",
+            "en-GB": "Product Labels"
+        },
+        "description": {
+            "de-DE": "Weist Produkten farbige Labels zu und zeigt diese im Storefront an",
+            "en-GB": "Assign colored labels to products and display them on the storefront"
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "SwProductLabel\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "SwProductLabel\\Tests\\": "tests/"
+        }
+    }
+}

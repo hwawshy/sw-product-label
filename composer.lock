@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "dd8b37cae5dae84e774606d2451f9689",
+    "content-hash": "c88e94527108d5566ea518bd63694ef9",
     "packages": [
         {
             "name": "brick/math",
@@ -6469,6 +6469,50 @@
             "time": "2025-05-03T06:37:30+00:00"
         },
         {
+            "name": "sw/product-label",
+            "version": "1.0.0",
+            "dist": {
+                "type": "path",
+                "url": "custom/plugins/SwProductLabel",
+                "reference": "809b4d2faa2120d6cab9d099cae5a90f040e953f"
+            },
+            "require": {
+                "shopware/administration": "~6.7.0",
+                "shopware/core": "~6.7.0",
+                "shopware/storefront": "~6.7.0"
+            },
+            "type": "shopware-platform-plugin",
+            "extra": {
+                "shopware-plugin-class": "SwProductLabel\\SwProductLabel",
+                "label": {
+                    "de-DE": "Produkt-Labels",
+                    "en-GB": "Product Labels"
+                },
+                "description": {
+                    "de-DE": "Weist Produkten farbige Labels zu und zeigt diese im Storefront an",
+                    "en-GB": "Assign colored labels to products and display them on the storefront"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "SwProductLabel\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "SwProductLabel\\Tests\\": "tests/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "Assign colored labels (e.g. New, Sale, Limited Edition) to products and display them on the storefront",
+            "transport-options": {
+                "symlink": true,
+                "relative": true
+            }
+        },
+        {
             "name": "symfony/asset",
             "version": "v7.4.8",
             "source": {
@@ -12772,12 +12816,12 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {},
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
         "composer-runtime-api": "^2.0"
     },
-    "platform-dev": [],
+    "platform-dev": {},
     "plugin-api-version": "2.9.0"
 }
