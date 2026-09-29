@@ -1,17 +1,91 @@
-name: Check
+name: CI
 
 on:
   push:
-    branches: [ main ]
+    branches: [ master, main ]
   pull_request:
-    branches: [ main ]
+    branches: [ master, main ]
 
 jobs:
-  check:
+  project-validate:
+    name: Project Validate
     runs-on: ubuntu-latest
-
     steps:
-      - name: Project Validate
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Validate Shopware project setup
         uses: shopware/github-actions/project-validate@main
         with:
           phpVersion: '8.4'
+
+  quality:
+    name: PHPStan + php-cs-fixer
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/shopware/docker-dev:php8.5-node24-caddy
+      options: --user root
+    env:
+      COMPOSER_ALLOW_SUPERUSER: 1
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Get composer cache directory
+        id: composer-cache
+        run: echo "dir=$(composer config cache-files-dir)" >> "$GITHUB_OUTPUT"
+
+      - name: Cache composer dependencies
+        uses: actions/cache@v4
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: composer-${{ runner.os }}-${{ hashFiles('**/composer.lock') }}
+          restore-keys: composer-${{ runner.os }}-
+
+      - name: Install dependencies
+        run: composer install --no-interaction --no-progress
+
+      - name: PHPStan (level max)
+        run: composer stan
+
+      - name: php-cs-fixer (Shopware ruleset)
+        run: composer cs:check
+
+  phpunit:
+    name: PHPUnit
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/shopware/docker-dev:php8.5-node24-caddy
+      options: --user root
+    env:
+      COMPOSER_ALLOW_SUPERUSER: 1
+    services:
+      database:
+        image: mariadb:11.8
+        env:
+          MARIADB_ROOT_PASSWORD: root
+        options: >-
+          --health-cmd="mariadb-admin ping --user=root --password=root --silent"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Get composer cache directory
+        id: composer-cache
+        run: echo "dir=$(composer config cache-files-dir)" >> "$GITHUB_OUTPUT"
+
+      - name: Cache composer dependencies
+        uses: actions/cache@v4
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: composer-${{ runner.os }}-${{ hashFiles('**/composer.lock') }}
+          restore-keys: composer-${{ runner.os }}-
+
+      - name: Install dependencies
+        run: composer install --no-interaction --no-progress
+
+      - name: Run plugin test suite
+        run: composer test

@@ -62,7 +62,11 @@
         ],
         "post-update-cmd": [
             "@auto-scripts"
-        ]
+        ],
+        "stan": "phpstan analyse --memory-limit=1G",
+        "cs:check": "php-cs-fixer fix --dry-run --diff",
+        "cs:fix": "php-cs-fixer fix",
+        "test": "phpunit -c custom/plugins/SwProductLabel/phpunit.xml.dist"
     },
     "extra": {
         "symfony": {
@@ -73,5 +77,11 @@
                 "flex://defaults"
             ]
         }
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3.64",
+        "phpstan/phpstan": "^2",
+        "phpunit/phpunit": "^11.5",
+        "shopwarelabs/phpstan-shopware": "^0.2.4"
     }
 }

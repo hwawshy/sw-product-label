@@ -1,0 +1,8 @@
+includes:
+    - vendor/shopwarelabs/phpstan-shopware/rules.neon
+
+parameters:
+    level: max
+    paths:
+        - custom/plugins/SwProductLabel/src
+        - custom/plugins/SwProductLabel/tests
