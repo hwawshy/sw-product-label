@@ -1,0 +1,5 @@
+docker:
+    services:
+        web:
+            ports:
+                admin_watcher: 35855
