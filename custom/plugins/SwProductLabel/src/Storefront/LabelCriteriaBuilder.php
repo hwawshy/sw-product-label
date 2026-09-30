@@ -37,7 +37,9 @@ class LabelCriteriaBuilder
      */
     public function getValidityFilters(\DateTimeImmutable $now): array
     {
-        $now = $now->format(Defaults::STORAGE_DATE_TIME_FORMAT);
+        // label dates are stored in UTC, so the reference point has to be
+        // normalized as well before it is formatted for the DAL comparison
+        $now = $now->setTimezone(new \DateTimeZone('UTC'))->format(Defaults::STORAGE_DATE_TIME_FORMAT);
 
         return [
             new EqualsFilter('active', true),
