@@ -77,3 +77,70 @@ jobs:
 
       - name: Run plugin test suite
         run: composer test
+
+  install-validation:
+    name: Install + activate validation
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/shopware/docker-dev:php8.5-node24-caddy
+      options: --user root
+    env:
+      COMPOSER_ALLOW_SUPERUSER: 1
+      DATABASE_URL: mysql://root:root@database:3306/shopware
+    services:
+      database:
+        image: mariadb:11.8
+        env:
+          MARIADB_ROOT_PASSWORD: root
+        options: >-
+          --health-cmd="mariadb-admin ping --user=root --password=root --silent"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Get composer cache directory
+        id: composer-cache
+        run: echo "dir=$(composer config cache-files-dir)" >> "$GITHUB_OUTPUT"
+
+      - name: Cache composer dependencies
+        uses: actions/cache@v4
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: composer-${{ runner.os }}-${{ hashFiles('**/composer.lock') }}
+          restore-keys: composer-${{ runner.os }}-
+
+      - name: Install dependencies
+        run: composer install --no-interaction --no-progress
+
+      - name: Point .env to the CI database
+        run: sed -i "s#^DATABASE_URL=.*#DATABASE_URL=mysql://root:root@database:3306/shopware#" .env
+
+      - name: Install Shopware
+        run: bin/console system:install --create-database --basic-setup --force
+
+      - name: Install and activate plugin
+        run: |
+          bin/console plugin:refresh
+          bin/console plugin:install --activate SwProductLabel
+          bin/console assets:install
+          bin/console plugin:list | grep SwProductLabel
+
+      - name: Compile storefront theme
+        run: bin/console theme:compile
+
+      - name: Storefront smoke test
+        run: |
+          php -S 127.0.0.1:8000 -t public >/tmp/server.log 2>&1 &
+          sleep 3
+          code=$(curl -s -o /tmp/home.html -w "%{http_code}" http://127.0.0.1:8000/)
+          echo "storefront status: $code"
+          test "$code" = "200"
+          grep -qi "<body" /tmp/home.html
+
+      - name: Admin bundle smoke test
+        run: |
+          test -f public/bundles/swproductlabel/administration/.vite/manifest.json
+          echo "plugin administration bundle present"
