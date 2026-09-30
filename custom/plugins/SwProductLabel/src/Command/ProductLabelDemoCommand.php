@@ -118,6 +118,7 @@ class ProductLabelDemoCommand extends Command
         $criteria = new Criteria();
         $criteria->addFilter(new EqualsFilter('productNumber', self::DEMO_PRODUCT_NUMBER));
         $criteria->addAssociation('visibilities');
+        $criteria->addAssociation('categories');
         $criteria->setLimit(1);
 
         $existing = $this->productRepository->search($criteria, $context)->first();
@@ -132,7 +133,41 @@ class ProductLabelDemoCommand extends Command
             return $this->storeProduct($io, $context, $existing, $labelIds, []);
         }
 
-        return $this->storeProduct($io, $context, $existing, $labelIds, $this->buildVisibilities($existing, $salesChannelIds));
+        return $this->storeProduct(
+            $io,
+            $context,
+            $existing,
+            $labelIds,
+            $this->buildVisibilities($existing, $salesChannelIds),
+            $this->buildCategoryIds($existing),
+        );
+    }
+
+    /**
+     * Assigns the demo product to the navigation category of the first sales
+     * channel, so the labels are visible on the storefront listing.
+     *
+     * @return list<string>
+     */
+    private function buildCategoryIds(?ProductEntity $existing): array
+    {
+        $navigationCategoryId = $this->connection->fetchOne(
+            'SELECT LOWER(HEX(navigation_category_id)) FROM sales_channel LIMIT 1',
+        );
+        if (!\is_string($navigationCategoryId) || $navigationCategoryId === '') {
+            return [];
+        }
+
+        $assigned = [];
+        foreach ($existing?->getCategoryIds() ?? [] as $categoryId) {
+            $assigned[] = $categoryId;
+        }
+
+        if (\in_array($navigationCategoryId, $assigned, true)) {
+            return [];
+        }
+
+        return [$navigationCategoryId];
     }
 
     /**
@@ -165,8 +200,9 @@ class ProductLabelDemoCommand extends Command
     /**
      * @param list<string> $labelIds
      * @param list<array{salesChannelId: string, visibility: int}> $visibilities
+     * @param list<string> $categoryIds
      */
-    private function storeProduct(SymfonyStyle $io, Context $context, ?ProductEntity $existing, array $labelIds, array $visibilities): string
+    private function storeProduct(SymfonyStyle $io, Context $context, ?ProductEntity $existing, array $labelIds, array $visibilities, array $categoryIds = []): string
     {
         $productId = $existing?->getId() ?? Uuid::randomHex();
 
@@ -180,6 +216,13 @@ class ProductLabelDemoCommand extends Command
 
         if ($visibilities !== []) {
             $payload['visibilities'] = $visibilities;
+        }
+
+        if ($categoryIds !== []) {
+            $payload['categories'] = array_map(
+                static fn(string $categoryId) => ['id' => $categoryId],
+                $categoryIds,
+            );
         }
 
         if ($existing === null) {

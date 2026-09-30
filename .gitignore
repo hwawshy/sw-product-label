@@ -36,3 +36,9 @@ phpstan.neon
 ###> ZCode workspace state ###
 /.zcode/
 ###< ZCode workspace state ###
+
+###> local agent / handoff artifacts (not part of the plugin) ###
+/.opencode/
+/HANDOFF.txt
+/.zcodeignore
+###< local agent / handoff artifacts (not part of the plugin) ###
