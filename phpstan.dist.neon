@@ -6,3 +6,7 @@ parameters:
     paths:
         - custom/plugins/SwProductLabel/src
         - custom/plugins/SwProductLabel/tests
+    ignoreErrors:
+        -
+            identifier: shopware.disallow.default.context.creation
+            path: custom/plugins/SwProductLabel/tests

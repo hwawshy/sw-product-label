@@ -16,5 +16,13 @@
         <testsuite name="SwProductLabel Unit">
             <directory>tests/Unit</directory>
         </testsuite>
+        <testsuite name="SwProductLabel Integration">
+            <directory>tests/Integration</directory>
+        </testsuite>
     </testsuites>
+    <source ignoreIndirectDeprecations="true">
+        <include>
+            <directory>src</directory>
+        </include>
+    </source>
 </phpunit>

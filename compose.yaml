@@ -1,7 +1,3 @@
-# This file is managed by shopware-cli. Do not edit manually.
-# Create a compose.override.yaml to customize services.
-# See https://docs.docker.com/compose/how-tos/multiple-compose-files/merge/
-
 services:
     web:
         image: ghcr.io/shopware/docker-dev:php8.5-node24-caddy
@@ -42,7 +38,7 @@ services:
             - --max_binlog_size=512M
             - --binlog_expire_logs_seconds=86400
         ports:
-            - 127.0.0.1::3306
+            - 3306:3306
         environment:
             MARIADB_DATABASE: shopware
             MARIADB_ROOT_PASSWORD: root
