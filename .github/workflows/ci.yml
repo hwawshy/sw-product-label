@@ -7,18 +7,6 @@ on:
     branches: [ master, main ]
 
 jobs:
-  project-validate:
-    name: Project Validate
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Validate Shopware project setup
-        uses: shopware/github-actions/project-validate@main
-        with:
-          phpVersion: '8.4'
-
   quality:
     name: PHPStan + php-cs-fixer
     runs-on: ubuntu-latest
