@@ -1,0 +1,9 @@
+{% sw_extends '@Storefront/storefront/component/product/card/box-standard.html.twig' %}
+
+{% block component_product_box_badges %}
+    {{ parent() }}
+
+    {% sw_include '@SwProductLabel/storefront/component/product-label/label-badges.html.twig' with {
+        labels: product.getExtension('productLabels')
+    } %}
+{% endblock %}

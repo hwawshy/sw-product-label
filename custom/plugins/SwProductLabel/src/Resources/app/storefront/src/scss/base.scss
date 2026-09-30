@@ -1,0 +1,19 @@
+.sw-product-labels {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+    margin-bottom: 0.5rem;
+}
+
+.sw-product-labels__badge {
+    display: inline-block;
+    padding: 0.2rem 0.6rem;
+    border-radius: 0.25rem;
+    background-color: var(--sw-product-label-color, #6c757d);
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 700;
+    line-height: 1.4;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}

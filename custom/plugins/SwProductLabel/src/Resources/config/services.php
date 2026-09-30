@@ -18,4 +18,6 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(ProductLabelTranslationDefinition::class);
     $services->set(ProductLabelProductDefinition::class);
     $services->set(ProductLabelExtension::class);
+
+    $services->load('SwProductLabel\\Storefront\\', __DIR__ . '/../../Storefront');
 };

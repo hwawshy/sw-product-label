@@ -1,0 +1,13 @@
+{% sw_extends '@Storefront/storefront/page/content/product-detail.html.twig' %}
+
+{% block cms_content %}
+    {% if page.product.getExtension('productLabels')|length > 0 %}
+        <div class="container">
+            {% sw_include '@SwProductLabel/storefront/component/product-label/label-badges.html.twig' with {
+                labels: page.product.getExtension('productLabels')
+            } %}
+        </div>
+    {% endif %}
+
+    {{ parent() }}
+{% endblock %}

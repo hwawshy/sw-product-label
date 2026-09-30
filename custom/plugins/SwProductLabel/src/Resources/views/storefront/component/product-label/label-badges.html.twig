@@ -1,0 +1,16 @@
+{% block sw_product_label_badges %}
+    {% if labels|length > 0 %}
+        <div class="sw-product-labels"
+             aria-label="{{ 'sw-product-label.labels.ariaLabel'|trans|striptags }}">
+            {% for label in labels %}
+                {% block sw_product_label_badge %}
+                    <span class="sw-product-labels__badge"
+                          style="--sw-product-label-color: {{ label.color }}"
+                          title="{{ label.name }}">
+                        {{ label.name }}
+                    </span>
+                {% endblock %}
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endblock %}
