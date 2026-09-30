@@ -1,0 +1,34 @@
+{
+    "sw-product-label": {
+        "general": {
+            "mainMenuItemGeneral": "Product labels",
+            "descriptionTextModule": "Manage colored labels (e.g. New, Sale, Limited Edition) that can be assigned to products and are shown in the storefront."
+        },
+        "list": {
+            "textHeadline": "Product labels",
+            "buttonAdd": "Add label",
+            "columnName": "Name",
+            "columnColor": "Color",
+            "columnPriority": "Priority",
+            "columnActive": "Active",
+            "columnValidFrom": "Valid from",
+            "columnValidTo": "Valid until"
+        },
+        "detail": {
+            "textHeadline": "New label",
+            "labelName": "Name",
+            "labelColor": "Color",
+            "labelPriority": "Priority",
+            "labelActive": "Active",
+            "labelValidFrom": "Valid from",
+            "labelValidTo": "Valid to",
+            "cardTitle": "Settings"
+        },
+        "productDetail": {
+            "tabLabel": "Labels",
+            "assignmentCardTitle": "Label assignment",
+            "assignmentLabel": "Assign labels",
+            "assignmentPlaceholder": "Search and assign labels"
+        }
+    }
+}

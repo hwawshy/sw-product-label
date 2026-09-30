@@ -1,0 +1,34 @@
+{
+    "sw-product-label": {
+        "general": {
+            "mainMenuItemGeneral": "Produkt-Labels",
+            "descriptionTextModule": "Verwaltet farbige Labels (z.B. Neu, Sale, Limited Edition), die Produkten zugewiesen und im Storefront angezeigt werden."
+        },
+        "list": {
+            "textHeadline": "Produkt-Labels",
+            "buttonAdd": "Label anlegen",
+            "columnName": "Name",
+            "columnColor": "Farbe",
+            "columnPriority": "Priorität",
+            "columnActive": "Aktiv",
+            "columnValidFrom": "Gültig ab",
+            "columnValidTo": "Gültig bis"
+        },
+        "detail": {
+            "textHeadline": "Neues Label",
+            "labelName": "Name",
+            "labelColor": "Farbe",
+            "labelPriority": "Priorität",
+            "labelActive": "Aktiv",
+            "labelValidFrom": "Gültig ab",
+            "labelValidTo": "Gültig bis",
+            "cardTitle": "Einstellungen"
+        },
+        "productDetail": {
+            "tabLabel": "Labels",
+            "assignmentCardTitle": "Label-Zuweisung",
+            "assignmentLabel": "Labels zuweisen",
+            "assignmentPlaceholder": "Labels suchen und zuweisen"
+        }
+    }
+}

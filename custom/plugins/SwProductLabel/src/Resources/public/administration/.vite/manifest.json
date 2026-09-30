@@ -1,0 +1,38 @@
+{
+  "main.js": {
+    "file": "assets/sw-product-label-XRMf4w1t.js",
+    "name": "sw-product-label",
+    "src": "main.js",
+    "isEntry": true,
+    "dynamicImports": [
+      "module/sw-product-label/page/sw-product-label-list/index.js",
+      "module/sw-product-label/page/sw-product-label-detail/index.js",
+      "module/sw-product-label/page/sw-product-label-create/index.js",
+      "view/sw-product-detail-labels/index.js"
+    ]
+  },
+  "module/sw-product-label/page/sw-product-label-create/index.js": {
+    "file": "assets/index-CAIeyIWF.js",
+    "name": "index",
+    "src": "module/sw-product-label/page/sw-product-label-create/index.js",
+    "isDynamicEntry": true
+  },
+  "module/sw-product-label/page/sw-product-label-detail/index.js": {
+    "file": "assets/index-Dzdmdev3.js",
+    "name": "index",
+    "src": "module/sw-product-label/page/sw-product-label-detail/index.js",
+    "isDynamicEntry": true
+  },
+  "module/sw-product-label/page/sw-product-label-list/index.js": {
+    "file": "assets/index-BmSwsDt3.js",
+    "name": "index",
+    "src": "module/sw-product-label/page/sw-product-label-list/index.js",
+    "isDynamicEntry": true
+  },
+  "view/sw-product-detail-labels/index.js": {
+    "file": "assets/index-BeKJ5XKx.js",
+    "name": "index",
+    "src": "view/sw-product-detail-labels/index.js",
+    "isDynamicEntry": true
+  }
+}

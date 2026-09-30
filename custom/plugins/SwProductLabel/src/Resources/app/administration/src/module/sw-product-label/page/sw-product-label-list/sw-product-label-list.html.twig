@@ -1,0 +1,88 @@
+{% block sw_product_label_list %}
+<sw-page class="sw-product-label-list">
+
+    {% block sw_product_label_list_smart_bar_header %}
+    <template #smart-bar-header>
+        <h2>{{ $t('sw-product-label.list.textHeadline') }}</h2>
+    </template>
+    {% endblock %}
+
+    {% block sw_product_label_list_smart_bar_actions %}
+    <template #smart-bar-actions>
+        <mt-button
+            variant="primary"
+            size="default"
+            @click="$router.push({ name: 'sw.product.label.create' })"
+        >
+            {{ $t('sw-product-label.list.buttonAdd') }}
+        </mt-button>
+    </template>
+    {% endblock %}
+
+    {% block sw_product_label_list_content %}
+    <template #content>
+
+        {% block sw_product_label_list_grid %}
+        <sw-card-view>
+            <sw-card :is-loading="isLoading">
+
+                {% block sw_product_label_list_grid_listing %}
+                <sw-entity-listing
+                    v-if="productLabels"
+                    :data-source="productLabels"
+                    :columns="columns"
+                    :repository="productLabelRepository"
+                    :show-selection="false"
+                    :show-settings="false"
+                    :disable-data-fetching="true"
+                    :full-page="false"
+                    :sort-by="sortBy"
+                    :sort-direction="sortDirection"
+                    :is-loading="isLoading"
+                    detail-route="sw.product.label.detail"
+                    @page-change="onChange"
+                    @column-sort="onSortColumn"
+                >
+
+                    {% block sw_product_label_list_grid_columns_color %}
+                    <template #column-color="{ item }">
+                        <span
+                            class="sw-product-label-list__color-swatch"
+                            :style="{ backgroundColor: item.color }"
+                        ></span>
+                        {{ item.color }}
+                    </template>
+                    {% endblock %}
+
+                    {% block sw_product_label_list_grid_columns_active %}
+                    <template #column-active="{ item }">
+                        <mt-icon
+                            :name="item.active ? 'regular-checkmark-xs' : 'regular-times-xs'"
+                            size="16px"
+                        />
+                    </template>
+                    {% endblock %}
+
+                    {% block sw_product_label_list_grid_columns_valid_from %}
+                    <template #column-validFrom="{ item }">
+                        {{ formatDate(item.validFrom) }}
+                    </template>
+                    {% endblock %}
+
+                    {% block sw_product_label_list_grid_columns_valid_to %}
+                    <template #column-validTo="{ item }">
+                        {{ formatDate(item.validTo) }}
+                    </template>
+                    {% endblock %}
+
+                </sw-entity-listing>
+                {% endblock %}
+
+            </sw-card>
+        </sw-card-view>
+        {% endblock %}
+
+    </template>
+    {% endblock %}
+</sw-page>
+{% endblock %}

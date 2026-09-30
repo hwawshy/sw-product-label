@@ -1,0 +1,12 @@
+{% block sw_product_label_detail_language_switch %}
+<template #language-switch>
+    <sw-language-switch disabled />
+</template>
+{% endblock %}
+
+{% block sw_product_label_detail_content_language_info %}
+<sw-language-info
+    :entity-description="placeholder(productLabel, 'name', $t('sw-product-label.detail.textHeadline'))"
+    is-new-entity
+/>
+{% endblock %}

@@ -1,0 +1,28 @@
+{
+  "base": "/bundles/swproductlabel/administration/",
+  "entryPoints": {
+    "sw-product-label": {
+      "css": [],
+      "dynamic": [
+        "/bundles/swproductlabel/administration/assets/index-BmSwsDt3.js",
+        "/bundles/swproductlabel/administration/assets/index-Dzdmdev3.js",
+        "/bundles/swproductlabel/administration/assets/index-CAIeyIWF.js",
+        "/bundles/swproductlabel/administration/assets/index-BeKJ5XKx.js"
+      ],
+      "js": [
+        "/bundles/swproductlabel/administration/assets/sw-product-label-XRMf4w1t.js"
+      ],
+      "legacy": false,
+      "preload": []
+    }
+  },
+  "legacy": false,
+  "metadatas": {},
+  "version": [
+    "7.1.0",
+    7,
+    1,
+    0
+  ],
+  "viteServer": null
+}
